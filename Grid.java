@@ -7,9 +7,12 @@ public class Grid implements ActionListener {
 	private JButton[] button;
 	private int size;
 	private int clicks;
+	private String buttonOrder;
 	private String correctOrder;
+	private JFrame frame;
 
-	public Grid(int newSize, int buttonSize) {
+	public Grid(JFrame caller, int newSize, int buttonSize) {
+		frame = caller;
 		clicks = 0;
 		size = newSize * newSize;
 		button = new JButton[size];
@@ -63,14 +66,18 @@ public class Grid implements ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 		Object obj = e.getSource();
-		String buttonOrder = "";
 		int sideSize = (int) Math.sqrt(size); // Size of one side
 
 		for (int i = 0; i < size; i++) {
 			if (obj == button[i]) {
+				buttonOrder = "";
 				clicks++;
 
 				// Horizontal
+				// FIXME: A square at the end of one line
+				// should not be treated as "adjacent"
+				// to a square at the beginning of the
+				// next line.
 				if (i > 0) {
 					switchButtons(button, i, -1);
 				}
@@ -100,13 +107,13 @@ public class Grid implements ActionListener {
 	}
 
 	private void win() {
-		System.out.println("Congratulations! You won after " + clicks + " clicks.");
-
+		String winString = "Congratulations! You won after " + clicks + " clicks.";
 		if (clicks < 0) {
-			System.out.println("Wait... " + clicks + "?");
-			System.out.println("What did you do?");
+			winString += "\n\nWait... " + clicks + "?\n";
+			winString += "What did you do?";
 		}
 
+		JOptionPane.showMessageDialog(frame, winString);
 		System.exit(0);
 	}
 
