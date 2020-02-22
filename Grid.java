@@ -27,8 +27,8 @@ public class Grid implements ActionListener {
 		UniqueRNG urng = new UniqueRNG(size);
 		Integer[] integers = urng.getNumList();
 
-		int x = buttonSize;
-		int y = buttonSize;
+		int x = 0;
+		int y = 0;
 		int count = 0;
 		int n = 0;
 
@@ -39,7 +39,7 @@ public class Grid implements ActionListener {
 
 			if (count % newSize == 0) {
 				y += buttonSize;
-				x = buttonSize;
+				x = 0;
 			}
 
 			// We only want numbers in the range [1, size)
@@ -55,8 +55,8 @@ public class Grid implements ActionListener {
 	}
 
 	private void switchButtons(JButton[] buttons, int i, int offset) {
-		if (button[i+offset].getText() == "") {
-			button[i+offset].setText(button[i].getText());
+		if (button[i + offset].getText() == "") {
+			button[i + offset].setText(button[i].getText());
 			button[i].setText("");
 		}
 	}
@@ -73,24 +73,20 @@ public class Grid implements ActionListener {
 				// Horizontal
 				if (i > 0) {
 					switchButtons(button, i, -1);
-					break;
 				}
-
 				if (i < size - 1) {
 					switchButtons(button, i, 1);
-					break;
 				}
 
 				// Vertical
 				if (i >= sideSize) {
 					switchButtons(button, i, -sideSize);
-					break;
 				}
-
 				if (i < size - sideSize) {
 					switchButtons(button, i, sideSize);
-					break;
 				}
+
+				break;
 			}
 		}
 

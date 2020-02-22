@@ -4,13 +4,15 @@ import java.awt.event.*;
 
 public class Test {
 	public static void main(String[] args) {
-		Grid grid = new Grid(4, 100);
+		int size = 4, buttonSize = 100;
+		int reqSize = size * buttonSize;
+		Grid grid = new Grid(size, buttonSize);
 
-		JFrame frame = new JFrame("Game");
+		JFrame frame = new JFrame("Slide Puzzle");
+		frame.setSize(reqSize, reqSize + 25);
 
 		grid.draw(frame);
 
-		frame.setSize(1024, 768);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLayout(null);
 		frame.setVisible(true);
